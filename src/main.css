@@ -1,0 +1,37 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+@import "tailwindcss";
+
+:root {
+  --primary-color: #4f46e5;
+  --secondary-color: #6b7280;
+  --background-color: #f9fafb;
+  --text-color: #111827;
+}
+
+/* styles */
+/* primary - #FFFFF
+secondary - #F5F5F5
+text-white- #FAFAFA
+green - #00FF66
+button-p -#DB4444
+buttton-p-hover -#E07575
+addToCart BTN -#00000
+text-black -#00000 secondText reduce opacity by 50%
+
+textSize- poppins 14px 400 regular,
+ semibold (e.g text above) 
+
+textSize - poppins 16px black regular (e.g Home, Contact),
+ shop Now 16px medium 500,
+  Days 12px medium 500
+  (footer support 20px regular)
+
+textSize - inter 24px solid 700 bold (e.g Exclusive)
+ flash Sale 36px semibold,
+  up to 48px semibold 600,
+   03 32px bold, 
+    */
+
