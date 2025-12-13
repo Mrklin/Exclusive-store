@@ -1,8 +1,9 @@
-<<<<<<< HEAD
 {
-    "rewrites": [{"source": "/(.*)", "destination": "/"}]
-=======
-{
-    "rewrites": [{"source": "/(.*)", "destination": "/"}]
->>>>>>> 3587c4b86e24b95f2204f3ba5db99e0dbb333b77
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
