@@ -1,5 +1,5 @@
 
-import Fullstar from "@/assets/icons/Fullstar.svg";
+import Fullstar from "@/assets/icons/FullStar.svg";
 import Halfstar from "@/assets/icons/halfStar.svg";
 import Emptystar from "@/assets/icons/EmptyStar.svg";
 
