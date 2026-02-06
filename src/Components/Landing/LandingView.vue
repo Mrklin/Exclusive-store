@@ -2,22 +2,24 @@
     <div class="max-w-[1440px] mx-auto">
             <div><Toaster position="top-center" :reverseOrder="false"/></div>
         <!-- Image Display Section -->
-        <section class="px-30  h-full flex gap-4">
-            <div class="w-1/5 border-r border-black/50 flex flex-col text-body font-medium [&_ul]:w-full pt-4 ">
-             <div class="pt-4 pr-2 [&_li]:mb-5.5">
+        <section class="px-4 md:px-10 lg:px-20 mb-9 md:h-105 h-full flex flex-col md:flex-row gap-4">
+
+            <div class="h-full w-full md:w-1/5 border-b md:border-b-0 md:border-r border-black/50 flex md:flex-col text-body font-medium md:[&_ul]:w-full pt-4 ">
+             
+                <div class="flex gap-3 flex-wrap md:block pt-4 pr-2 [&_li]:mb-4">
                 <ul v-for="(dropdown, index) in dropdowns" :key="index">
                     <li class="flex justify-between mb-5.5">{{ dropdown.name }}  <img src="\src\assets\icons\DropDown.svg" alt=""></li>
                 </ul>
                 <ul v-for="(category, index) in categories" :key="index" >
                     <li >{{ category.name }} </li>
                 </ul>
-             </div>
+                </div>
                 
             </div>
 
-            <div class="w-4/5 pt-8 ">
+            <div class="w-full h-full md:w-4/5 pt-8 ">
 
-                <div class="bg-black px-12 py-6 flex justify-between items-center ">
+                <div class="bg-black h-full px-12 py-6 flex justify-between items-center ">
 
                     <div class=" text-[#FAFAFA] flex flex-col gap-4">
                         <div class=" text-sm font-light flex justify-start items-center ">
@@ -26,7 +28,7 @@
                             </span>
                             <p>iPhone 14 Series</p>
                         </div>
-                        <h1 class="leading-normal font-fancy text-5xl">Up to 10% <br> off Voucher</h1>
+                        <h1 class="leading-normal font-fancy text-2xl lg:text-5xl">Up to 10% <br> off Voucher</h1>
                         <span class="flex items-center justify-start gap-2 cursor-pointer ">
                             <p class="border-white/50 border-b">Shop Now</p>
                             <img src="\src\assets\icons\icons arrow-right.svg" alt="">
@@ -43,45 +45,46 @@
         </section>
 
             <!-- Flash Products section -->
-        <section class="pl-30 pb-20 mt-15">
+        <section class="pl-4 md:pl-10 lg:pl-30 pb-20 mt-15">
 
-            <div class="flex  flex-col gap-4 ">
+            <div class="flex flex-col gap-4 ">
 
                 <div class="flex gap-3 items-center w-full pr-30 text-[#DB4444] font-body font-semibold">
                     <div class="w-5 h-8 rounded-md bg-[#DB4444]"/>
                     <p>Today's</p>
                 </div>
 
-                <div class=" flex justify-between items-center gap-10 w-full mb-5 pr-30">
-                    <span class="flex items-end gap-20">
-                        <h2 class="font-fancy text-4xl font-bold">Flash Sales</h2>
+                <div class=" flex flex-col md:flex-row justify-between items-center gap-10 w-full mb-5 pr-20">
+                    <span class="flex w-full flex-col md:flex-row md:items-end justify-between gap-4 md:gap-20">
 
-                        <span class="flex items-center [&_h2]:font-fancy [&_h2]:font-bold [&_h2]:text-3xl
+                        <h2 class="font-fancy w-full self-start text-nowrap text-2xl md:text-4xl font-bold">Flash Sales</h2>
+
+                        <span class="flex w-full items-center [&_h2]:text-xl [&_h2]:font-fancy [&_h2]:font-bold [&_h2]:md:text-3xl
                         [&_p]:font-body [&_p]:text-sm [&_p]:font-medium gap-4 text-black [&_h3]:text-3xl [&_h3]:font-bold
                         [&_h3]:self-end [&_h3]:mb-1 [&_h3]:text-[#DB4444]">
                             <span class="flex flex-col gap-1">
                             <p>Days</p>
-                            <h2>03</h2>
+                            <h2>{{days}}</h2>
                         </span>
                         <h3>:</h3> 
                         <span class="flex flex-col gap-1">
                             <p>Hours</p>
-                            <h2>15</h2>
+                            <h2>{{hours}}</h2>
                         </span>
                         <h3>:</h3> 
                         <span class="flex flex-col gap-1">
                             <p>Minutes</p>
-                            <h2>45</h2>
+                            <h2>{{minutes}}</h2>
                         </span>
                         <h3>:</h3> 
                         <span class="flex flex-col gap-1">
                             <p>Seconds</p>
-                            <h2>20</h2>
+                            <h2>{{seconds}}</h2>
                         </span>
                         </span>
 
                     </span>
-                <span class="flex gap-4 [&_img]:cursor-pointer [&_img]:hover:bg-black/10">
+                <span class="flex justify-between w-full md:justify-center md:gap-4 [&_img]:cursor-pointer [&_img]:hover:bg-black/10">
                         <img @click="scrollProducts('left')" class="p-3 rounded-full bg-[#FAFAFA]" src="\src\assets\icons\icons_arrow-left.svg" alt="">
                         <img @click="scrollProducts('right')" class="p-3 rounded-full rotate-180 bg-[#FAFAFA]" src="\src\assets\icons\icons_arrow-left.svg" alt="">
                 </span>
@@ -131,7 +134,7 @@
         </section>
 
         <!-- Categories Section and Icons -->
-        <section class="px-30 pb-20 ">
+        <section class="px-4 md:px-10 lg:px-30 pb-20">
 
             <div class="flex flex-col gap-4 pt-15 border-t border-black/30">
 
@@ -142,7 +145,7 @@
 
             <div class=" flex justify-between items-center w-full mb-5">
                 <span class="flex items-end gap-20">
-                     <h2 class="font-fancy text-4xl font-bold">Browse By Category</h2>
+                     <h2 class="font-fancy text-2xl md:text-4xl font-bold">Browse By Category</h2>
                 </span>
                <span class="flex gap-4 [&_img]:cursor-pointer [&_img]:hover:bg-black/10">
                     <img class="p-3 rounded-full bg-[#FAFAFA]" src="\src\assets\icons\icons_arrow-left.svg" alt="">
@@ -151,7 +154,7 @@
                
             </div>
 
-            <div class="flex justify-between items-center w-full">
+            <div class="flex justify-between items-center gap-2 flex-wrap md:flex-no-wrap w-full">
                 
                 <span v-for="(catCard, index) in catCards" :key="index"
                 class="group rounded-sm border flex justify-center items-center flex-col min-w-30 min-h-25
@@ -166,7 +169,7 @@
         </section>
 
         <!-- Best Sellers -->
-        <section class="px-30 pb-20 ">
+        <section class="px-4 md:px10 lg:px-30 pb-20 ">
 
             <div class="flex  flex-col gap-4 pt-15 border-t border-black/30">
                 <div class="flex gap-3 items-center w-full pr-30 text-[#DB4444] font-body font-semibold">
@@ -176,13 +179,14 @@
 
                 <div class=" flex justify-between items-center w-full mb-5">
                     <span class="flex items-end gap-20">
-                        <h2 class="font-fancy text-4xl font-bold">Best Selling Products</h2>
+                        <h2 class="font-fancy text-2xl md:text-4xl font-bold">Best Selling Products</h2>
                     </span>
 
                 <Button> View All </Button>
                 
                 </div>
-                <div class="grid grid-cols-4 justify-between gap-5 items-center w-full mt-15">
+
+                <div class="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-between gap-5 items-center w-full md:mt-15">
                      <div @click="goToProductId(product.id)" v-for="product in getBestSellers" :key="product.id"
                         class="flex flex-col gap-2 items-start justify-between p-2 rounded-sm hover:shadow-lg hover:cursor-pointer">
                             <div class="bg-black/15 rounded-sm w-full ">
@@ -215,28 +219,28 @@
         </section>
 
         <!-- JamBox Banner Section -->
-        <section class="px-30 pb-20 flex justify-between items-center gap-4 mt-15 ">
+        <section class=" px-4 md:px-10 lg:px-30 pb-20 flex justify-between items-center gap-4 mt-15 ">
             
-            <div class="text-[#FAFAFA] flex justify-between items-center bg-black w-full px-10 py-14">
+            <div class="text-[#FAFAFA] flex flex-col md:flex-row justify-between items-center bg-black w-full px-10 py-14">
                 <div class="flex flex-col gap-4 items-start">
                     <p class="text-[#00ff66]">Category</p>
-                    <h1 class="leading-normal font-fancy text-5xl">Enhance  Your <br> Music Experience</h1>
+                    <h1 class="leading-normal font-fancy text-3xl md:text-5xl">Enhance  Your <br> Music Experience</h1>
                     <span class="flex justify-center gap-3 items-center text-xs [&_h4]:text-base [&_h4]:font-medium">
                         <span class="bg-[#FAFAFA] leading-2.5 rounded-full flex w-17 h-17 flex-col justify-center 
                         items-center text-black ">
-                            <h4>23</h4>
-                            <p>Hours</p>
-                        </span>
-                        <span class="bg-[#FAFAFA] leading-2.5 rounded-full flex w-17 h-17 flex-col justify-center items-center text-black">
-                            <h4>05</h4>
+                            <h4>{{days}}</h4>
                             <p>Days</p>
                         </span>
                         <span class="bg-[#FAFAFA] leading-2.5 rounded-full flex w-17 h-17 flex-col justify-center items-center text-black">
-                            <h4>59</h4>
+                            <h4>{{hours}}</h4>
+                            <p>Hours</p>
+                        </span>
+                        <span class="bg-[#FAFAFA] leading-2.5 rounded-full flex w-17 h-17 flex-col justify-center items-center text-black">
+                            <h4>{{ minutes }}</h4>
                             <p>Minutes</p>
                         </span>
                         <span class="bg-[#FAFAFA] leading-2.5 rounded-full flex w-17 h-17 flex-col justify-center items-center text-black">
-                            <h4>35</h4>
+                            <h4>{{seconds}}</h4>
                             <p>Seconds</p>
                         </span>
                     </span>
@@ -252,7 +256,7 @@
         </section>
 
         <!-- Explore Products Section -->
-        <section class="px-30 pb-20 mt-15">
+        <section class="px-4 md:px10 lg:px-30 pb-20 md:mt-15">
 
             <div class="flex  flex-col gap-4 ">
 
@@ -261,9 +265,9 @@
                     <p>Our Products</p>
                 </div>
 
-                <div class=" flex justify-between items-center gap-10 w-full mb-5 ">
+                <div class=" flex justify-between items-center gap-10 w-full mb-5">
                     <span class="flex items-end gap-20">
-                        <h2 class="font-fancy text-4xl font-bold">Explore Our Products</h2>
+                        <h2 class="font-fancy text-2xl text-nowrap md:text-4xl font-bold">Explore Our Products</h2>
                     </span>
                 <span class="flex gap-4 [&_img]:cursor-pointer [&_img]:hover:bg-black/10">
                         <img class="p-3 rounded-full bg-[#FAFAFA]" src="\src\assets\icons\icons_arrow-left.svg" alt="">
@@ -272,7 +276,7 @@
                 
                 </div>
 
-                <div class="grid grid-cols-4 grid-rows-2 justify-between gap-5 items-center w-full mt-15">
+                <div class="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 grid-rows-2 justify-between gap-5 items-center w-full md:mt-15">
                     <div @click="goToProductId(product.id)" v-for="product in getExplore" :key="product.id" 
                     class="flex flex-col gap-2 items-start justify-between p-2 rounded-sm hover:shadow-lg hover:cursor-pointer">
                         <div class="bg-black/15 rounded-sm w-full ">
@@ -301,7 +305,7 @@
                     </div>
                 </div>
 
-                <div class="w-full pr-30 flex justify-center items-center pt-10">
+                <div class="w-full md:pr-30 flex justify-center items-center pt-10">
                     
                     <Button>
                         View All Products
@@ -310,7 +314,7 @@
              </div>
         </section>
 
-        <section class="px-30 pb-20 mt-15">
+        <section class="px-4 md:px10 lg:px-30 pb-20 md:mt-15">
 
             <div class="flex  flex-col gap-4 ">
 
@@ -321,12 +325,12 @@
 
                 <div class=" flex justify-between items-center gap-10 w-full mb-5 ">
                     <span class="flex items-end gap-20">
-                        <h2 class="font-fancy text-4xl font-bold">New Arrivals</h2>
+                        <h2 class="font-fancy text-2xl md:text-4xl font-bold">New Arrivals</h2>
                     </span>
                 
                 </div>
 
-                <div class="grid grid-cols-4 grid-rows-2  gap-6">
+                <div class="grid grid-cols-4 grid-rows-2 gap-6">
                     
                     <div class="relative flex col-span-2 row-span-2 bg-black rounded-sm">
                         <img src="\src\assets\ps5.png" class="inset-0 self-end" alt="">
@@ -338,8 +342,8 @@
                     </div>
 
                     <div class="relative col-span-2 bg-black rounded-sm">
-                        <span class="absolute left-0 ml-7 mb-10 [&_p]:text-[#FAFAFA] bottom-0 flex flex-col gap-2 justify-center items-start">
-                            <p class="font-fancy font-bold text-2xl">Women's Collections</p>
+                        <span class="absolute left-0 ml-2 md:ml-7 mb-10 [&_p]:text-[#FAFAFA] bottom-0 flex flex-col gap-2 justify-center items-start">
+                            <p class="font-fancy font-bold text-xl md:text-2xl">Women's Collections</p>
                             <p class="text-sm font-light">Featured woman collection that <br> give you another vibe</p>
                             <p class="border-white/50 border-b cursor-pointer">Shop Now</p>
                         </span>
@@ -347,16 +351,16 @@
                     </div>
                     <div class="relative flex bg-black justify-center items-center rounded-sm">
                         <img src="\src\assets\amazon-echo.png" class="inset-0 w-[80%]" alt="">
-                        <span class="absolute left-0 ml-7 mb-10 [&_p]:text-[#FAFAFA] bottom-0 flex flex-col gap-2 justify-center items-start">
-                            <p class="font-fancy font-bold text-2xl">Speakers</p>
+                        <span class="absolute left-0 ml-2 md:ml-7 mb-10 [&_p]:text-[#FAFAFA] bottom-0 flex flex-col gap-2 justify-center items-start">
+                            <p class="font-fancy font-bold text-xl md:text-2xl">Speakers</p>
                             <p class="text-sm font-light">Amazon Wireless Speakers</p>
                             <p class="border-white/50 border-b cursor-pointer">Shop Now</p>
                         </span>
                     </div>
                     <div class="relative flex bg-black justify-center items-center rounded-sm">
                         <img src="\src\assets\perfume.png" class="inset-0 w-[80%]" alt="">
-                        <span class="absolute left-0 ml-7 mb-10 [&_p]:text-[#FAFAFA] bottom-0 flex flex-col gap-2 justify-center items-start">
-                            <p class="font-fancy font-bold text-2xl">Perfumes</p>
+                        <span class="absolute left-0 ml-2 md:ml-7 mb-10 [&_p]:text-[#FAFAFA] bottom-0 flex flex-col gap-2 justify-center items-start">
+                            <p class="font-fancy font-bold text-xl md:text-2xl">Perfumes</p>
                             <p class="text-sm font-light">GUCCI INTENSE OUD EDP</p>
                             <p class="border-white/50 border-b cursor-pointer">Shop Now</p>
                         </span>
@@ -370,13 +374,13 @@
              </div>
         </section>
 
-        <section class="px-50 pb-20  flex justify-between">
+        <section class="px-4 md:px-20 lg:px-50 pb-20 gap-4 flex-wrap md:flex-nowrap justify-center flex md:justify-between">
 
             <div class="flex flex-col items-center gap-1 ">
                 <img src="\src\assets\Delivery.png" class="w-30" alt="">
                 <span class="flex flex-col items-center gap-2">
                     <h2 class="font-fancy font-bold">FREE AND FAST DELIVERY</h2>
-                    <p class="text-sm font-body font-medium">Free delivery for all orders over $140</p>
+                    <p class="text-sm font-body text-wrap font-medium">Free delivery for all orders over $140</p>
                 </span>
             </div>
 
@@ -411,6 +415,7 @@ import cameraIcon from '../Icon/cameraIcon.vue';
 import Button from '../Universal Comp/Button.vue';
 import cartIcon from '../Icon/cartIcon.vue';
 import heartIcon from '../Icon/heartIcon.vue';
+import { useCartStore } from '@/store/cartStore';
 
 import { mapActions, mapGetters } from 'vuex';
 export default {
@@ -429,6 +434,7 @@ export default {
     emit:['product'],
     data() {
         return {
+             cartStore: useCartStore(),
             dropdowns:[
                 {name:"Woman's Fashion"},
                 {name:"Man's Fashion"}
@@ -437,7 +443,7 @@ export default {
                 {name:"Electronics"},
                 {name:"Home & Lifestyle"},
                 {name:"Sports & Outdoor"},
-                {name:"Baby's % Toys"},
+                {name:"Baby's & Toys"},
                 {name:"Groceries & Pets"},
                 {name:"Health & Beauty"},
             ],
@@ -449,7 +455,25 @@ export default {
                 {name:'Cameras', cat: 'cameraIcon' },
                 {name:'HeadPhones', cat: 'headphone' },
                 {name:'Gaming', cat: 'gamingIcon'},
-            ]
+            ],
+
+            timer:null,
+
+            FIXED_DURATION_MS: (
+                3 * 24 * 60 * 60 * 1000 + // 3 days
+                15 * 60 * 60 * 1000 +     // 15 hours
+                45 * 60 * 1000 +          // 45 minutes
+                22 * 1000                 // 22 seconds
+            ),
+
+            // Reactive time values
+            days: '00',
+            hours: '00',
+            minutes: '00',
+            seconds: '00',
+
+            // Stores the next time the timer should end
+            targetTime: null,
         }
     },
     computed: {
@@ -476,9 +500,13 @@ export default {
             'fetchProducts',
         ]),
 
-        ...mapActions('cart',[
-            'addToCart',
-        ]),
+        // ...mapActions('cart',[
+        //     'addToCart',
+        // ]),
+
+        addToCart(product) {
+            this.cartStore.addToCart(product);
+        },
 
         ...mapActions('wishList',[
             'addToWishList',
@@ -495,7 +523,7 @@ export default {
             } else {
                 this.addToWishList(product);
             }
-        },
+        }, 
 
         handleAddToCart(product, event) {
             event.stopPropagation();
@@ -515,11 +543,70 @@ export default {
                
                 container.scrollLeft += scrollDistance;
             }
+        },
+
+        // Helper to pad single digits
+        formatTime(value) {
+            return value < 10 ? `0${value}` : `${value}`;
+        },
+        
+        initializeTargetTime() {
+            const storedTarget = localStorage.getItem('countdownTargetTime');
+            const now = Date.now();
+            
+            if (storedTarget) {
+                this.targetTime = parseInt(storedTarget);
+                
+                // If the stored time is in the past, reset it to now + duration, 
+                // ensuring the timer doesn't start at zero for days/weeks.
+                while (this.targetTime < now) {
+                    this.targetTime += this.FIXED_DURATION_MS;
+                }
+            } else {
+                // First run: set target to current time + fixed duration
+                this.targetTime = now + this.FIXED_DURATION_MS;
+            }
+
+            // Save the newly calculated target time
+            localStorage.setItem('countdownTargetTime', this.targetTime);
+        },
+
+        startCountdown() {
+            this.timer = setInterval(() => {
+                const now = Date.now();
+                let distance = this.targetTime - now;
+
+                if (distance < 0) {
+                    // Timer expired: RESET
+                    this.targetTime = now + this.FIXED_DURATION_MS;
+                    localStorage.setItem('countdownTargetTime', this.targetTime);
+                    distance = this.FIXED_DURATION_MS; // Start the calculation with the full duration
+                }
+
+                // Time calculations
+                const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Update reactive data properties
+                this.days = this.formatTime(d);
+                this.hours = this.formatTime(h);
+                this.minutes = this.formatTime(m);
+                this.seconds = this.formatTime(s);
+            }, 1000);
         }
     },
 
     mounted(){
         this.fetchProducts();
+        this.initializeTargetTime();
+        this.startCountdown();
+    },
+
+    beforeUnmount() {
+        // Clear the interval when the component is destroyed
+        clearInterval(this.timer);
     }
 }
 </script>

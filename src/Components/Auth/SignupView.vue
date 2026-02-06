@@ -1,13 +1,13 @@
 <template >
     <div>
-        <section class="mt-10 mb-20 flex justify-between  items-center">
+        <section class="px-4 md:10 lg:px-30 mt-10 mb-20 flex justify-between items-center">
 
-            <div >
+            <div class="hidden md:flex"  >
                 <img src="\src\assets\Auth\Side Image.png" class="h-screen" alt="">
             </div>
 
-            <div class="flex w-[50%] ">
-                <div class="flex flex-col justify-center pl-50 items-start gap-8 w-full ">
+            <div class="flex w-full justify-center md:w-[50%] ">
+                <div class="flex flex-col justify-center md:pl-50 items-center md:items-start gap-8 w-full ">
                     <span class="flex flex-col  gap-4">
                         <h3 class="font-fancy font-semi-bold tracking-wider text-3xl">Create an Account</h3>
                         <p class="font-bold text-sm">Enter your detalis below</p>
@@ -34,7 +34,7 @@
 
                         <span class="flex flex-col justify-center gap-2 items-center w-full">
                             <Button> <span class="px-17">Create Account</span> </Button>
-                            <Button customClass="px-14 py-3 rounded-sm border hover:bg-black hover:text-[#FAFAFA]"> 
+                            <Button customClass="px-12 py-3 rounded-sm border hover:bg-black hover:text-[#FAFAFA]"> 
                                 <span class="flex gap-3 justify-center items-center">
                                     <img src="\src\assets\Auth\Icon-Google.svg" class="w-4" alt="">
                                     Sign up with Google
@@ -53,86 +53,169 @@
         </section>
     </div>
 </template>
-<script>
-import { mapActions } from 'vuex';
+<script setup>
+    
+import { useUserStore } from '@/store/userStore';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import Button from '../Universal Comp/Button.vue';
-export default {
-    components:{Button},
-    data() {
-        return {
-            name:'',
-            email:'',
-            password:'',
-            confirmPass:'',
-            generateError:'',
-            passwordError:'',
-            confirmPassError:'',
-            passwordCriteria:{
-                length: false,
-                uppercase: false,
-                number: false,
-                symbol: false
-            },
+// export default {
+//     components:{Button},
 
+    
+    // data() {
+    //     return {
+    //         name:'',
+    //         email:'',
+    //         password:'',
+    //         confirmPass:'',
+    //         generateError:'',
+    //         passwordError:'',
+    //         confirmPassError:'',
+    //         passwordCriteria:{
+    //             length: false,
+    //             uppercase: false,
+    //             number: false,
+    //             symbol: false
+    //         },
+
+    //     }
+
+    // },
+
+  //  methods: {
+  //        ...mapActions('user',['signupUser']),
+
+        //   validatePass(){
+        //     const p = this.password
+
+        //     this.passwordCriteria.length = p.length >= 8,
+        //     this.passwordCriteria.uppercase = /[A-Z]/.test(p),
+        //     this.passwordCriteria.number = /[0-9]/.test(p),
+        //     this.passwordCriteria.symbol = /[]/.test(p),
+        //     this.passwordError = !Object.values(this.passwordCriteria).every(v=> v === true),
+        //     this.generateError=''
+        //   },
+
+        //   isFormValid(){
+        //     if(!this.name || this.email || this.password || this.confirmPass){
+        //         this.generateError="Please fill in the fields"
+        //         return false;
+        //     }
+
+        //     if(this.passwordError){
+        //         this.generateError = 'Password does not meet requirement';
+        //         return false;
+        //     }
+
+        //     if(this.password !== this.confirmPass){
+        //         this.generateError="Password does not match",
+        //         this.confirmPassError = true;
+        //         return false;
+        //     }
+
+        //     this.generateError =true;
+        //     this.confirmPassError = false;
+        //     return true;
+        //   },
+
+        //   async handleSignUp(){
+        //     if(!this.isFormValid){
+        //         return
+        //     }
+
+        //     try {
+        //         await this.signupUser({
+        //             name: this.name,
+        //             email: this.email,
+        //             password: this.password
+        //         });
+
+        //         this.$router.push({name:'login'})
+        //     } catch (error) {
+        //         this.generateError = error.message
+        //     }
+        //   }
+ //   },
+
+//  mounted() {
+//         this.$store.dispatch('user/initializeAuth');
+//     }
+
+
+ //Pinia Setup
+
+ const router = useRouter();
+
+ const name = ref('');
+    const email = ref('');
+    const password = ref('');
+    const confirmPass = ref('');
+    const generateError = ref('');
+    const passwordError = ref(false);
+    const confirmPassError = ref(false);
+    const passwordCriteria = ref({
+        length: false,
+        uppercase: false,
+        number: false,
+        symbol: false
+    });
+
+    const signUp = useUserStore();
+
+    const validatePass = () => {
+        const p = password.value;
+
+        passwordCriteria.value.length = p.length >= 8;
+        passwordCriteria.value.uppercase = /[A-Z]/.test(p);
+        passwordCriteria.value.number = /[0-9]/.test(p);
+        passwordCriteria.value.symbol = /[!@#$%^&*(),.?":{}|<>]/.test(p);
+        passwordError.value = !Object.values(passwordCriteria.value).every(v => v === true);
+        generateError.value = '';
+    }; 
+
+    const isFormValid = () => {
+        if (!name.value || !email.value || !password.value || !confirmPass.value) {
+            generateError.value = "Please fill in the fields";
+            return false;
         }
 
-    },
+        if (passwordError.value) {
+            generateError.value = 'Password does not meet requirement';
+            return false;
+        }
 
-    methods: {
-          ...mapActions('user',['signupUser']),
+        if (password.value !== confirmPass.value) {
+            generateError.value = "Password does not match";
+            confirmPassError.value = true;
+            return false;
+        }
 
-          validatePass(){
-            const p = this.password
+        generateError.value = '';
+        confirmPassError.value = false;
+        return true;
+    };
 
-            this.passwordCriteria.length = p.length >= 8,
-            this.passwordCriteria.uppercase = /[A-Z]/.test(p),
-            this.passwordCriteria.number = /[0-9]/.test(p),
-            this.passwordCriteria.symbol = /[]/.test(p),
-            this.passwordError = !Object.values(this.passwordCriteria).every(v=> v === true),
-            this.generateError=''
-          },
+    const handleSignUp = async () => {
+        if (!isFormValid()) {
+            return;
+        }
 
-          isFormValid(){
-            if(!this.name || this.email || this.password || this.confirmPass){
-                this.generateError="Please fill in the fields"
-                return false;
-            }
+        try {
+            await signUp.signupUser({
+                name: name.value,
+                email: email.value,
+                password: password.value
+            });
 
-            if(this.passwordError){
-                this.generateError = 'Password does not meet requirement';
-                return false;
-            }
+            router.push({ name: 'login' });
+        } catch (error) {
+            generateError.value = error.message;
+        }
+    };
 
-            if(this.password !== this.confirmPass){
-                this.generateError="Password does not match",
-                this.confirmPassError = true;
-                return false;
-            }
-
-            this.generateError =true;
-            this.confirmPassError = false;
-            return true;
-          },
-
-          async handleSignUp(){
-            if(!this.isFormValid){
-                return
-            }
-
-            try {
-                await this.signupUser({
-                    name: this.name,
-                    email: this.email,
-                    password: this.password
-                });
-
-                this.$router.push({name:'login'})
-            } catch (error) {
-                this.generateError = error.message
-            }
-          }
-    },
-}
+    
+// }
 </script>
 <style lang="">
     

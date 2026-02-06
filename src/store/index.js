@@ -1,16 +1,18 @@
 import { createStore } from 'vuex'
-import userStore from './userStore'
+// import { useUserStore } from './userStore'
+// import userStore from './userStore'
 import productStore from './productStore'
-import cartStore from './cartStore'
+// import cartStore from './cartStore'
 import wishlistStore from './wishlistStore'
 import checkout from './checkout'
 
 const store = createStore({
 
     modules :{
-        user:userStore,
+        // user:userStore,
+        // user1:useUserStore(),
         products:productStore,
-        cart: cartStore,
+        // cart: cartStore,
         wishList: wishlistStore,
         checkout: checkout
     }

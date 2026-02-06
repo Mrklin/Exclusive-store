@@ -1,4 +1,4 @@
-<template >
+<!-- <template >
     <Toaster position="top-center" :reverseOrder="false"/>
     <div class="relative flex justify-between items-center px-30 font-body border-b border-black/20 pt-8 pb-6 w-full bg-white">
         <h3 class="font-fancy font-bold text-2xl">Exclusive</h3>
@@ -51,7 +51,88 @@
 
         </span>
     </div>
+</template> -->
+
+<template>
+  <Toaster position="top-center" :reverseOrder="false"/>
+  <nav class="relative border-b border-black/20 bg-white w-full font-body">
+    <div class="flex justify-between items-center px-4 md:px-10 lg:px-20 py-5">
+      
+      <h3 class="font-fancy font-bold text-2xl">Exclusive</h3>
+
+      <ul class="hidden md:flex justify-between gap-5 font-medium text-base">
+        <router-link v-for="Nav in Navs" :key="Nav.path" :to="Nav.path"
+          :class="[$route.path===Nav.path? 'border-b border-black/50':'', 'cursor-pointer transition-all duration-300 ease-in-out']">
+          {{Nav.name}}
+        </router-link>
+      </ul>
+
+      <div class="flex items-center gap-3 md:gap-4">
+        
+        <div class="hidden sm:flex px-2.5 py-1.5 rounded-sm bg-black/10 items-center">
+          <input type="text" class="text-xs outline-0 border-0 bg-transparent w-24 lg:w-auto" placeholder="What are you looking for?">
+          <img src="/src/assets/icons/Search.svg" alt="search-icon" class="cursor-pointer">
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div @click="gotoWishlist" class="relative cursor-pointer">
+            <heart />
+            <span v-if="wishListCount > 0" class="absolute -top-2 -right-2 bg-[#DB4444] text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px] font-semibold">
+              {{ wishListCount }}
+            </span>
+          </div>
+
+          <div @click="gotoCart" class="relative cursor-pointer">
+            <cart />
+            <span v-if="cartCount > 0" class="absolute -top-2 -right-2 bg-[#DB4444] text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px] font-semibold">
+              {{ cartCount }}
+            </span>
+          </div>
+
+          <div class="relative">
+            <span v-if="isLoggedIn" @click="toggleMenu" class="flex rounded-full p-1 bg-[#DB4444] cursor-pointer">
+              <profile class="text-white"/>
+            </span>
+
+            <div v-if="toggle && isLoggedIn" class="absolute top-12 right-0 w-56 bg-[#867287] rounded-sm py-3 z-50 shadow-lg">
+              <ul class="flex flex-col gap-2 px-2 text-[#FAFAFA]">
+                <li @click="toAccount" class="flex items-center gap-3 p-2 hover:bg-black/20 cursor-pointer rounded-sm">
+                  <profile class="w-5"/> <p class="text-sm">Manage My Account</p>
+                </li>
+                <li class="flex items-center gap-3 p-2 hover:bg-black/20 cursor-pointer rounded-sm">
+                  <order class="w-5"/> <p class="text-sm">My Order</p>
+                </li>
+                <li v-if="isLoggedIn" @click="logoutUser" class="flex items-center gap-3 p-2 hover:bg-black/20 cursor-pointer rounded-sm border-t border-white/10">
+                  <logout class="w-5"/> <p class="text-sm">Logout</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden flex flex-col gap-1.5 z-50">
+            <span :class="['w-6 h-0.5 bg-black transition-all', mobileMenuOpen ? 'rotate-45 translate-y-2' : '']"></span>
+            <span :class="['w-6 h-0.5 bg-black transition-all', mobileMenuOpen ? 'opacity-0' : '']"></span>
+            <span :class="['w-6 h-0.5 bg-black transition-all', mobileMenuOpen ? '-rotate-45 -translate-y-2' : '']"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <transition name="fade">
+      <div v-if="mobileMenuOpen" class="fixed inset-0 bg-white z-40 md:hidden pt-24 px-10">
+        <ul class="flex flex-col gap-8 text-xl font-medium">
+          <router-link v-for="Nav in Navs" :key="Nav.path" :to="Nav.path" @click="mobileMenuOpen = false"
+            class="border-b border-gray-100 pb-2">
+            {{Nav.name}}
+          </router-link>
+        </ul>
+      </div>
+    </transition>
+  </nav>
 </template>
+
+
+
 <script>
 import CartIcon from '../Icon/cartIcon.vue';
 import toast,{Toaster} from 'vue3-hot-toast';
@@ -62,6 +143,10 @@ import starIcon from '../Icon/starIcon.vue';
 import cancleIcon from '../Icon/cancleIcon.vue';
 import logoutIcon from '../Icon/logoutIcon.vue';
 import { mapActions, mapGetters } from 'vuex';
+import { useUserStore } from '@/store/userStore';
+import { useCartStore } from '@/store/cartStore';
+
+
 export default {
     name:'Nav',
     components:{
@@ -76,6 +161,8 @@ export default {
     },
     data() {
         return {
+             userStore : useUserStore(),
+             cartStore : useCartStore(),
             Navs:[
                 {path:'/', name:'Home'},
                 {path:'/contact', name:'Contact'},
@@ -83,34 +170,25 @@ export default {
                 {path:'/signup', name:'Sign Up'},
             ],
             toggle: false,
+            mobileMenuOpen: false,
         }
     },
+
     methods: {
+
         toggleMenu(){
             this.toggle = ! this.toggle
         },
 
-        ...mapActions('user',['logoutUser']),
+        // ...mapActions('user',['logoutUser']),
+
+        logoutUser(){
+            this.userStore.logoutUser();
+        },
 
         toAccount(){
             this.$router.push({name:'account'});
         },
-    },
-
-    computed: {
-        ...mapGetters('user',{
-            isLoggedIn: 'getIsLoggedIn',
-            userName: 'getUser'
-
-        }),
-
-        ...mapGetters('cart',{
-            cartCount:'getCartItemCount',
-        }),
-
-        ...mapGetters('wishList',{
-            wishListCount:'getWishListItemCount'
-        }),
 
         gotoCart(){
             if(!this.isLoggedIn){
@@ -130,7 +208,36 @@ export default {
             }
         },
     },
-}
+
+    computed: {
+        // ...mapGetters('user',{
+        //     isLoggedIn: 'getIsLoggedIn',
+        //     userName: 'getUser'
+
+        // }),
+
+        // ...mapGetters('cart',{
+        //     cartCount:'getCartItemCount',
+        // }),
+
+        cartCount(){
+            return this.cartStore.getCartItemCount;
+        },
+
+        ...mapGetters('wishList',{
+            wishListCount:'getWishListItemCount'
+        }),
+
+        isLoggedIn(){
+            return this.userStore.isLoggedIn;
+        },
+
+    },
+
+    // created() {
+    // this.userStore.initializeAuth();
+    // }
+};
 </script>
 <style >
     

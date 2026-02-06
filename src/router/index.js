@@ -14,6 +14,7 @@ import ResetView from '@/Components/Auth/ResetView.vue'
 import AuthLayout from '@/Pages/AuthLayout.vue'
 import LandingLayout from '@/Pages/LandingLayout.vue'
 import store from '@/store'
+import { useUserStore } from '@/store/userStore.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,7 @@ const router = createRouter({
           name: 'product',
           component: ProductView,
           props: true,
+          meta: {requiresAuth: true}
         },
         {
           path: 'about',
@@ -107,7 +109,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   
-  const isLoggedIn = store.getters['user/getIsLoggedIn'];
+  const isLoggedIn = useUserStore().isLoggedIn;
 
   if(to.meta.requiresAuth && !isLoggedIn){
     next({name: 'login'});

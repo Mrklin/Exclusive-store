@@ -1,4 +1,4 @@
-<template >
+<!-- <template >
     <div class="max-w-360 mx-auto">
         <section class="px-30 pb-10 mt-10">
 
@@ -12,7 +12,7 @@
             
             <div v-else class="grid grid-cols-5 gap-4 w-full">
 
-                <div class=" flex flex-col gap-2">
+                <div class="flex flex-col gap-2">
                     <span class=" p-2 h-40  flex flex-col gap-3 bg-black/10">
                         <img :src="product.altImg[0]" :alt="product.name"
                         class="inset-0 h-full">
@@ -227,13 +227,156 @@
             </div>
         </div>
     </section> -->
-    </div>
+    <!-- </div> -->
+<!-- </template> --> 
+
+<template>
+  <div class="max-w-[1440px] mx-auto overflow-hidden">
+    <section class="px-5 md:px-10 lg:px-20 py-10">
+      <div class="w-full flex justify-start items-center text-sm md:text-base">
+        <p class="text-black/50">Home / <span class="text-black font-medium">{{ product?.name || 'Item' }}</span></p>
+      </div>
+    </section>
+
+    <section class="px-5 md:px-10 lg:px-20 pb-10">
+      <div v-if="!product" class="flex justify-center items-center h-60">
+        <div class="animate-pulse text-xl">Loading product details...</div>
+      </div>
+      
+      <div v-else class="flex flex-col lg:grid lg:grid-cols-5 gap-8 w-full">
+
+        <div class="hidden lg:flex lg:flex-col gap-4">
+          <div v-for="(img, index) in product.altImg" :key="index" 
+            class="p-2 h-32 flex justify-center items-center bg-black/5 rounded-sm cursor-pointer hover:border-[#DB4444] border transition-all">
+            <img :src="img" :alt="product.name" class="max-h-full object-contain">
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 flex justify-center items-center bg-black/5 rounded-sm p-10 min-h-[300px] md:min-h-[500px]">
+          <img :src="product.image" :alt="product.name" class="max-w-full max-h-full object-contain drop-shadow-md">
+        </div>
+
+        <div class="flex lg:hidden gap-3 overflow-x-auto pb-2 scrollbar-hide">
+          <div v-for="(img, index) in product.altImg" :key="index" 
+            class="flex-shrink-0 p-2 w-20 h-20 bg-black/5 rounded-sm border">
+            <img :src="img" class="w-full h-full object-contain">
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 flex flex-col gap-5">
+          <div class="flex flex-col gap-2">
+            <h1 class="font-fancy font-bold text-2xl md:text-3xl">{{ product.name }}</h1>
+            <div class="flex items-center gap-3">
+              <span class="flex items-center gap-1"> 
+                <img v-for="(star, starIndex) in product.rating" :key="starIndex" :src="star" class="w-4 h-4" />
+                <span class="text-black/50 text-sm ml-1">({{ product.quantity }} Reviews)</span>
+              </span>
+              <span class="text-green-400 text-sm border-l pl-3">In Stock</span>
+            </div>
+            <h2 class="text-2xl font-fancy mt-2">${{ (product?.price?.new * product.number).toFixed(2) }}</h2>
+          </div>
+
+          <p class="text-sm leading-relaxed text-black/80">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est aliquid mollitia odit voluptas molestiae accusantium vitae quaerat.
+          </p>
+
+          <hr class="border-black/10">
+
+          <div class="flex items-center gap-4">
+            <h3 class="text-xl">Colours:</h3>
+            <div class="flex gap-3">
+              <label class="cursor-pointer h-5 w-5 rounded-full border border-black/20 flex items-center justify-center relative">
+                <input type="radio" name="color" value="blue" class="peer hidden" @change="handleRadio('blue')" checked>
+                <span class="w-full h-full rounded-full bg-blue-400"></span>
+                <span class="absolute -inset-1 border-2 border-black rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></span>
+              </label>
+              <label class="cursor-pointer h-5 w-5 rounded-full border border-black/20 flex items-center justify-center relative">
+                <input type="radio" name="color" value="red" class="peer hidden" @change="handleRadio('red')">
+                <span class="w-full h-full rounded-full bg-[#DB4444]"></span>
+                <span class="absolute -inset-1 border-2 border-black rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <h3 class="text-xl">Size:</h3>
+            <div class="flex gap-2">
+              <label v-for="size in sizes" :key="size.id" class="cursor-pointer">
+                <input type="radio" :name="size.name" :value="size.value" class="peer hidden" @change="handleSize(size.value)">
+                <span class="w-8 h-8 flex items-center justify-center border rounded-sm text-sm font-medium peer-checked:bg-[#DB4444] peer-checked:text-white transition-colors">
+                  {{ size.value }}
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4 mt-2">
+            <div class="flex border rounded-md overflow-hidden">
+              <button @click="removeSingle(product)" class="px-4 py-2 hover:bg-[#DB4444] hover:text-white transition-colors border-r">-</button>
+              <input type="text" :value="product.number" readonly class="w-12 text-center text-lg font-medium outline-none">
+              <button @click="addSingle(product)" class="px-4 py-2 hover:bg-[#DB4444] hover:text-white transition-colors border-l">+</button>
+            </div>
+            
+            <Button @click="buyNow" customClass="flex-1 lg:flex-none px-12">Buy Now</Button>
+            
+            <div @click="toggleWishList(product)" 
+              class="p-2 border rounded-md cursor-pointer hover:bg-[#DB4444] hover:text-white transition-all group">
+              <heartIcon :class="[isInWishList(product.id) ? 'text-[#DB4444] group-hover:text-white' : 'text-black']"/>
+            </div>
+          </div>
+
+          <div class="border rounded-md mt-4 divide-y">
+            <div class="flex items-center gap-4 p-4">
+              <img src="/src/assets/icons/icon-delivery.svg" class="w-10" alt="">
+              <div>
+                <p class="font-medium text-sm">Free Delivery</p>
+                <p class="text-xs underline cursor-pointer">Enter your postal code for Availability</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-4">
+              <img src="/src/assets/icons/Icon-return.svg" class="w-10" alt="">
+              <div>
+                <p class="font-medium text-sm">Return Delivery</p>
+                <p class="text-xs">Free 30 days Delivery Returns. <span class="underline cursor-pointer">Details</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 md:px-10 lg:px-20 py-20">
+      <div class="flex items-center gap-3 mb-10">
+        <div class="w-5 h-10 rounded-sm bg-[#DB4444]"></div>
+        <p class="text-[#DB4444] font-semibold">Related Items</p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+        <div v-for="relProduct in relatedProducts" :key="relProduct.id" 
+          @click="goToProductId(relProduct.id)"
+          class="group cursor-pointer">
+          <div class="bg-black/5 rounded-sm aspect-square relative flex items-center justify-center p-8 overflow-hidden">
+            <img :src="relProduct.image" class="max-h-full object-contain transition-transform group-hover:scale-110">
+            <button @click.stop="addToCart(relProduct)" class="absolute bottom-0 left-0 w-full bg-black text-white py-2 translate-y-full group-hover:translate-y-0 transition-transform">
+              Add to Cart
+            </button>
+          </div>
+          <div class="mt-3">
+            <h4 class="font-medium truncate">{{ relProduct.name }}</h4>
+            <p class="text-[#DB4444] font-medium">${{ relProduct.price.new }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
+
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Button from '../Universal Comp/Button.vue';
 import heartIcon from '../Icon/heartIcon.vue';
 import cartIcon from '../Icon/cartIcon.vue';
+import { useCartStore } from '@/store/cartStore';
 
 export default {
     props:['id'],
@@ -246,6 +389,7 @@ export default {
 
     data() {
         return {
+            cartStore: useCartStore(),
             selectedRadio : 'blue',
             sizes:[
                 {id:1, name:'size', value:'XS'},
@@ -291,9 +435,12 @@ export default {
 
         ...mapActions('wishList',['addToWishList', 'removeFromWishList']),
 
-        ...mapActions('cart',[
-            'addToCart',
-        ]),
+        // ...mapActions('cart',[
+        //     'addToCart',
+        // ]),
+        addToCart(product) {
+            this.cartStore.addToCart(product);
+        },
 
         ...mapActions('checkout',[
              'setCheckoutItems',

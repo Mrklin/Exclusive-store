@@ -1,14 +1,14 @@
 <template >
     <div class="max-w-360 mx-auto">
-        <section class="px-30 pb-10 mt-10">
+        <section class="px-4 md:px-10 lg:px-30 mt-10">
             <div class="w-full flex justify-start items-center [&_p]:text-black/50">
                 <p>Home / <span class="text-black">Contact</span></p>
             </div>
         </section>
 
-        <section class="px-30 pb-10 mt-8">
-            <div class="flex justify-between items-start h-fit">
-                <div class="flex flex-col justify-center items-start gap-2.5 shadow-lg p-5  w-[30%]">
+        <section class="px-4 md:px-10 lg:px-30 pb-10 mt-8">
+            <div class="flex flex-col md:flex-row justify-between items-start h-fit">
+                <div class="flex flex-col justify-center items-start gap-2.5 shadow-lg p-5 w-full md:w-[60%] lg:w-[30%]">
                     <span>
                         <img src="\src\assets\icons\icons-phone.svg" class=" inline-block" alt="">
                         <p class="ml-4 font-medium inline-block">Call To Us</p>
@@ -25,9 +25,9 @@
                     <p>Emails: support@exclusive.com</p>
                 </div>
 
-                <div class="flex flex-col justify-center items-start gap-2 shadow-lg p-5 w-[65%]">
-                    <span class="flex justify-between [&_input]:bg-black/20 [&_input]:py-2 [&_input]:outline-0 
-                    [&_input]:px-3 w-full">
+                <div class="flex flex-col justify-center items-start gap-2 shadow-lg p-5 w-full md:w-[65%]">
+                    <span class="flex flex-col md:flex-row flex-wrap justify-between [&_input]:bg-black/20 [&_input]:py-2 [&_input]:outline-0 
+                    [&_input]:px-3 [&_input]:mb-2 w-full">
                         <input type="text" placeholder="Name *">
                         <input type="email" placeholder="Email *">
                         <input type="text" placeholder="Phone Number *" v-model="tel"

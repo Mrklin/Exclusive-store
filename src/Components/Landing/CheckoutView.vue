@@ -1,8 +1,8 @@
 <template >
     <div class="max-w-360 mx-auto">
-        <section class="px-30 pb-10 mt-10">
+        <section class="px-4 md:px-10 lg:px-30 pb-10 mt-10">
 
-            <div class="w-full flex justify-start items-center [&_p]:text-black/50">
+            <div class="w-full flex justify-start flex-wrap items-center [&_p]:text-black/50">
                 <p>Account / </p>
                 <p> My Account / </p>
                 <p> Product / </p>
@@ -12,10 +12,10 @@
 
         </section>
 
-        <section class="px-30 ">
+        <section class="px-4 md:px-10 lg:px-30 ">
             <h1 class="font-fancy font-medium text-4xl">Billing Details</h1>
-            <div class="flex justify-between gap-6 items-start mt-5">
-                <div class="w-1/2 pr-10">
+            <div class="flex flex-col-reverse md:flex-row justify-between gap-6 items-start mt-5">
+                <div class="md:w-1/2 md:pr-10 w-full">
                     <label class="flex flex-col gap-2 mb-5">
                         <span class="text-black/20">First Name <span class="text-[#DB4444]">*</span></span>
                         <input type="text" class="bg-black/10 p-2 ">
@@ -59,7 +59,7 @@
                     </span>
                 </div>
 
-                <div class="w-1/2 flex flex-col gap-4 pl-10">
+                <div class="md:w-1/2 flex flex-col gap-4 md:pl-10 w-full">
 
                     <div class="flex flex-col gap-4 mb-4">
                         <div v-for="item in checkoutItems" :key="item.id" class="flex items-center justify-between shadow-sm p-2 mr-10">
