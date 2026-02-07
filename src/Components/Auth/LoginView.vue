@@ -32,6 +32,17 @@
                             <a href="#" ></a>
                         </span>
                     </form>
+
+                    <div class="marquee-container bottom-0" @mouseenter="pause = true" @mouseleave="pause = false">
+                        <div :class="['marquee-track', { 'paused': pause }]">
+                        <div class="marquee-content">
+                            <slot>Use email: 'frank@gmail.com' and </slot>
+                        </div>
+                        <div class="marquee-content" aria-hidden="true">
+                            <slot>password:'SecureP@ss123' to login</slot>
+                        </div>
+                        </div>
+                    </div>
                 </div>
                 
             </div>
@@ -48,6 +59,8 @@ import Button from '../Universal Comp/Button.vue';
 import toast,{Toaster} from 'vue3-hot-toast';
 // export default {
     components:{Button, Toaster};
+
+    const pause = ref(false);
 
     const router = useRouter();
 
@@ -117,6 +130,41 @@ import toast,{Toaster} from 'vue3-hot-toast';
     // },
 // }
 </script>
-<style lang="">
-    
+
+<style scoped>
+.marquee-container {
+  overflow: hidden;
+  user-select: none;
+  display: flex;
+  width: 100%;
+  background: #f4f4f4; /* Optional styling */
+  padding: 10px 0;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 10s linear infinite;
+}
+
+.marquee-track.paused {
+  animation-play-state: paused;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 15px; /* Space between items */
+  padding-right: 15px; /* Match gap for seamless loop */
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
 </style>
